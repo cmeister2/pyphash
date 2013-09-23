@@ -65,7 +65,7 @@ float* readaudio_mp3(const char *filename,long *sr, const float nbsecs, unsigned
   mpg123_scan(m);
   totalsamples = mpg123_length(m);
   
-  int meta = mpg123_meta_check(m);
+  mpg123_meta_check(m);
 
   int channels, encoding;
     
@@ -87,7 +87,8 @@ float* readaudio_mp3(const char *filename,long *sr, const float nbsecs, unsigned
   unsigned int nbsamples = (nbsecs <= 0) ? totalsamples : nbsecs*(*sr);
   nbsamples = (nbsamples < totalsamples) ? nbsamples : totalsamples;
 
-  size_t i, j, index = 0, done;
+  size_t i, index = 0, done;
+  int j;
 
 
   float *buffer = (float*)malloc(nbsamples*sizeof(float));
@@ -237,7 +238,8 @@ float* ph_readaudio2(const char *filename, int sr, float *sigbuf, int &buflen, c
   src_data.src_ratio = sr_ratio;
 
   /* sample rate conversion */ 
-  if (error = src_process(src_state, &src_data)){
+  error = src_process(src_state, &src_data);
+  if (error){
     free(inbuffer);
     free(outbuffer);
     src_delete(src_state);
@@ -297,7 +299,7 @@ uint32_t* ph_audiohash(float *buf, int N, int sr, int &nb_frames){
    int nb_barks = (int)(floor(nfft_half/2 + 1));
    double barkwidth = 1.06;    
 
-   double freqs[nb_barks];
+   //double freqs[nb_barks];
    double binbarks[nb_barks];
    double curr_bark[nfilts];
    double prev_bark[nfilts];
@@ -309,7 +311,7 @@ uint32_t* ph_audiohash(float *buf, int N, int sr, int &nb_frames){
 
    for (int i=0; i < nb_barks;i++){
        binbarks[i] = 6*asinh(i*sr/nfft_half/600.0);
-       freqs[i] = i*sr/nfft_half;
+//       freqs[i] = i*sr/nfft_half;
    }
    double **wts = new double*[nfilts];
    for (int i=0;i<nfilts;i++){
@@ -513,6 +515,7 @@ void *ph_audio_thread(void *p)
                 dp->hash = hash;
                 dp->hash_length = count;
         }
+        return NULL;
 }
 
 DP** ph_audio_hashes(char *files[], int count, int sr, int channels, int threads)

@@ -394,7 +394,6 @@ long GetNumberVideoFrames(const char *file)
 	    return nb_frames;
 	}
 	else { // frames must be counted
-	    AVPacket packet;
 		nb_frames = (long)av_index_search_timestamp(str,str->duration, AVSEEK_FLAG_ANY|AVSEEK_FLAG_BACKWARD);
 		// Close the video file
 		 int timebase = str->time_base.den / str->time_base.num;

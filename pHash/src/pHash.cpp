@@ -408,11 +408,15 @@ void *ph_image_thread(void *p)
         {
                 DP *dp = (DP *)s->hash_p[i];
 		ulong64 hash;
-		int ret = ph_dct_imagehash(dp->id, hash);
+		//int ret =
+		ph_dct_imagehash(dp->id, hash);
                 dp->hash = (ulong64*)malloc(sizeof(hash));
 		memcpy(dp->hash, &hash, sizeof(hash));
                 dp->hash_length = 1;
         }
+
+//      Needs to return something.
+        return NULL;
 }
 
 DP** ph_dct_image_hashes(char *files[], int count, int threads)
@@ -711,6 +715,9 @@ void *ph_video_thread(void *p)
 			dp->hash_length = 0;
 		}
         }
+
+        // Must return something.
+        return NULL;
 }
 
 DP** ph_dct_video_hashes(char *files[], int count, int threads)
@@ -1036,7 +1043,7 @@ TxtHashPoint* ph_texthash(const char *filename,int *nbpoints){
 	if ((d >= 65)&&(d<=90))       /*convert upper to lower case */
 	    d = d + 32;
 
-	ulong64 oldsym = textkeys[kgram[first%KgramLength]];
+	ulong64 oldsym = textkeys[(int)kgram[first%KgramLength]];
 
 	/* rotate or left shift ??? */
 	/* right now, rotate breaks it */
