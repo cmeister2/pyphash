@@ -8,6 +8,13 @@
 #ifndef VIDEOINFO_H_
 #define VIDEOINFO_H_
 
+#ifndef INT64_C
+#define INT64_C(c) (c ## LL)
+#define UINT64_C(c) (c ## ULL)
+#endif
+
+#include <pHash.h>
+
 #define cimg_display 0
 #define cimg_debug 0
 
@@ -24,7 +31,6 @@ extern "C" {
 using namespace cimg_library;
 
 #include <assert.h>
-#include <pHash.h>
 
 typedef struct video_info {
   //Video filename
