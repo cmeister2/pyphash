@@ -92,7 +92,7 @@ int main(int argc, char **argv){
 	}
 	int maxlength = 0;
         for (int j=0;j<count;j++){
-	    if (matches[j].length > maxlength)
+	    if (matches[j].length > (uint32_t)maxlength)
 		maxlength = matches[j].length;
 	}
 	printf("     no. matches %d, max length %d\n", count, maxlength);
@@ -116,7 +116,7 @@ int main(int argc, char **argv){
 	    printf("file%d: %s\n", j, files2[j]);
 	    int maxlength = 0;
 	    for (int k=0;k<count;k++){
-		if (matches[k].length > maxlength)
+		if (matches[k].length > (uint32_t)maxlength)
 		    maxlength = matches[k].length;
 	    }
 	    printf("  no. matches %d, max length %d\n\n", count,maxlength);

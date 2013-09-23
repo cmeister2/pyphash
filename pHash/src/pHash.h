@@ -289,7 +289,7 @@ int ph_compare_images(const char *file1, const char *file2,double &pcc, double s
  *  /param N - int denoting the size of the square matrix to create.
  *  /return CImg<double> size NxN containing the dct matrix
  */
-//static CImg<float>* ph_dct_matrix(const int N);
+CImg<float>* ph_dct_matrix(const int N);
 
 /*! /brief compute dct robust image hash
  *  /param file string variable for name of file
